@@ -37,6 +37,12 @@ async function signUpAgent(name: string): Promise<Agent> {
           'Nothing about secrecy was tested. Wait up to an hour and run again.',
       )
     }
+    if (error.code === 'anonymous_provider_disabled') {
+      throw new Error(
+        'SETUP, NOT A LEAK: anonymous sign-ins are off for this project. Turn on ' +
+          'Authentication > Sign In / Providers > "Allow anonymous sign-ins" in the Supabase dashboard.',
+      )
+    }
     throw new Error(`Anonymous sign-up failed (${error.code ?? error.status}): ${error.message}`)
   }
   await ok(client.rpc('set_display_name', { p_name: name }))
