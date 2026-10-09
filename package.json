@@ -1,0 +1,33 @@
+{
+  "name": "pigeon-ops",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "lint": "oxlint",
+    "preview": "vite preview",
+    "db:push": "supabase db push --linked",
+    "db:seed": "supabase db query --linked -f supabase/seed/decks.sql",
+    "db:advisors": "supabase db advisors --linked --type security",
+    "test:secrecy": "node --env-file=.env.local --test tests/secrecy.test.ts"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.117.3",
+    "@tailwindcss/vite": "^4.3.3",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
+    "tailwindcss": "^4.3.3"
+  },
+  "devDependencies": {
+    "@types/node": "^24.13.3",
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.7",
+    "@vitejs/plugin-react": "^6.1.1",
+    "oxlint": "^1.81.0",
+    "supabase": "^2.120.0",
+    "typescript": "~6.0.2",
+    "vite": "^8.3.0"
+  }
+}
