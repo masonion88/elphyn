@@ -1,47 +1,68 @@
-import { useState } from 'react'
-import { supabase } from './lib/supabase'
-
-// Phase 0 stub: proves the deploy can reach Supabase. Replaced by the real app in Phase 1.
-type Wire = { state: 'idle' } | { state: 'checking' } | { state: 'live'; agent: string } | { state: 'down'; reason: string }
+import { Button, LinkButton, Loading, Notice, Screen, Title } from './components/ui'
+import { match, usePath } from './lib/router'
+import { SessionProvider, useSession } from './lib/session'
+import { configError } from './lib/supabase'
+import { CirclePage } from './screens/CirclePage'
+import { Codename } from './screens/Codename'
+import { Home } from './screens/Home'
+import { Join } from './screens/Join'
+import { NewCircle } from './screens/NewCircle'
+import { OperationPage } from './screens/OperationPage'
+import { StartOperation } from './screens/StartOperation'
+import { WriteMission } from './screens/WriteMission'
 
 export default function App() {
-  const [wire, setWire] = useState<Wire>({ state: 'idle' })
-
-  async function testTheWire() {
-    setWire({ state: 'checking' })
-    const { data: session } = await supabase.auth.getSession()
-    if (!session.session) {
-      const { error } = await supabase.auth.signInAnonymously()
-      if (error) return setWire({ state: 'down', reason: error.message })
-    }
-    const { error } = await supabase.rpc('game_rules')
-    if (error) return setWire({ state: 'down', reason: error.message })
-    const { data } = await supabase.auth.getUser()
-    setWire({ state: 'live', agent: data.user?.id.slice(0, 4).toUpperCase() ?? '????' })
+  if (configError) {
+    return (
+      <Screen>
+        <Title kicker="HQ is offline">The wires are crossed.</Title>
+        <Notice tone="error">{configError}</Notice>
+      </Screen>
+    )
   }
-
   return (
-    <main className="min-h-dvh bg-amber-50 px-6 py-16 text-stone-900">
-      <div className="mx-auto max-w-sm text-center">
-        <p className="text-xs font-bold tracking-[0.3em] text-red-700">CLASSIFIED</p>
-        <h1 className="mt-2 text-4xl font-black">Pigeon Ops</h1>
-        <p className="mt-4 text-stone-700">
-          HQ is under construction. The pigeons are being fitted for trench coats.
-        </p>
-        <button
-          onClick={testTheWire}
-          disabled={wire.state === 'checking'}
-          className="mt-10 w-full rounded-2xl bg-stone-900 px-6 py-4 text-lg font-bold text-amber-50 active:scale-95 disabled:opacity-60"
-        >
-          {wire.state === 'checking' ? 'Dialing HQ…' : 'Test the wire'}
-        </button>
-        {wire.state === 'live' && (
-          <p className="mt-6 font-semibold text-emerald-700">Wire is live. You are agent #{wire.agent}.</p>
-        )}
-        {wire.state === 'down' && (
-          <p className="mt-6 font-semibold text-red-700">The line is dead: {wire.reason}</p>
-        )}
-      </div>
-    </main>
+    <SessionProvider>
+      <Gate />
+    </SessionProvider>
+  )
+}
+
+// Nobody gets past the front desk without a codename. The URL is kept, so a
+// /join/OTTER-4821 link still lands on the join screen afterwards.
+function Gate() {
+  const { state } = useSession()
+  const path = usePath()
+
+  if (state.status === 'loading') return <Screen><Loading label="Checking credentials…" /></Screen>
+  if (state.status === 'error') {
+    return (
+      <Screen>
+        <Title kicker="HQ is unreachable">Static on the line.</Title>
+        <Notice tone="error">{state.message}</Notice>
+        <div className="mt-6"><Button onClick={() => window.location.reload()}>Try again</Button></div>
+      </Screen>
+    )
+  }
+  if (state.status === 'needs-codename') return <Codename mode="enlist" />
+  return <Routes path={path} />
+}
+
+function Routes({ path }: { path: string }) {
+  let m: Record<string, string> | null
+  if (path === '/') return <Home />
+  if (path === '/me') return <Codename mode="rename" />
+  if (path === '/new') return <NewCircle />
+  if (path === '/join') return <Join />
+  if ((m = match('/join/:code', path))) return <Join key={m.code} code={m.code} />
+  if ((m = match('/c/:circleId', path))) return <CirclePage key={m.circleId} circleId={m.circleId} />
+  if ((m = match('/c/:circleId/operations/new', path))) return <StartOperation key={m.circleId} circleId={m.circleId} />
+  if ((m = match('/c/:circleId/missions', path))) return <WriteMission key={m.circleId} circleId={m.circleId} />
+  if ((m = match('/op/:operationId', path))) return <OperationPage key={m.operationId} operationId={m.operationId} />
+  return (
+    <Screen>
+      <Title kicker="404">This page is above everyone's clearance.</Title>
+      <p className="mb-6 text-lg text-muted">Mostly because it doesn't exist.</p>
+      <LinkButton to="/">Back to HQ</LinkButton>
+    </Screen>
   )
 }

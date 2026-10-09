@@ -1,1 +1,46 @@
 @import "tailwindcss";
+
+/* Default look: the classified dossier (chaos circles and everything outside a circle). */
+@theme {
+  --color-paper: #f4e9cf;
+  --color-card: #fffaee;
+  --color-ink: #221c17;
+  --color-muted: #6f6150;
+  --color-line: #d8c59b;
+  --color-stamp: #c0262d;
+  --color-accent: #221c17;
+  --color-accent-ink: #fff8e6;
+  --color-good: #2f7d4f;
+  --font-type: ui-monospace, "SF Mono", "Cascadia Mono", Menlo, Consolas, monospace;
+}
+
+/* Tender circles: softer "field notes". Same app, gentler palette. */
+[data-deck="tender"] {
+  --color-paper: #eceee2;
+  --color-card: #fffdf5;
+  --color-ink: #2b3832;
+  --color-muted: #66715f;
+  --color-line: #cdd5c0;
+  --color-stamp: #cf6f5d;
+  --color-accent: #4c7760;
+  --color-accent-ink: #fffdf5;
+}
+
+html {
+  -webkit-tap-highlight-color: transparent;
+  background: var(--color-paper);
+}
+
+body {
+  @apply bg-paper text-ink antialiased;
+}
+
+@keyframes stamp-in {
+  0% { transform: scale(1.6) rotate(-8deg); opacity: 0; }
+  60% { transform: scale(0.95) rotate(-8deg); opacity: 1; }
+  100% { transform: scale(1) rotate(-8deg); opacity: 1; }
+}
+
+.animate-stamp {
+  animation: stamp-in 260ms ease-out both;
+}
