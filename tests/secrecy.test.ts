@@ -172,6 +172,59 @@ describe('secrecy', () => {
     assert.match(operationId, /^[0-9a-f-]{36}$/)
   })
 
+  // The write functions run as their owner and skip row level security, so each
+  // one has to refuse callers itself. Every refusal below is followed by a check
+  // that nothing changed.
+
+  it('nobody but the two agents can debrief, veto, rule or write a case file on an operation', async () => {
+    const snapshot = async () => {
+      const cards = [await myCard(A, operationId), await myCard(B, operationId)]
+      const [op] = await ok(A.client.from('operations').select('status, revealed_at').eq('id', operationId))
+      return { op, cards: cards.map(({ missions: _missions, ...card }) => card) }
+    }
+    const before = await snapshot()
+
+    for (const intruder of [C, D]) {
+      await refused(intruder.client.rpc('submit_debrief', {
+        p_operation_id: operationId, p_completed: true, p_accused_decoy: true,
+      }), { hint: 'not_your_op' }, `${intruder.name} submit_debrief`)
+      await refused(intruder.client.rpc('reroll_mission', { p_operation_id: operationId }),
+        { hint: 'not_your_op' }, `${intruder.name} reroll_mission`)
+      await refused(intruder.client.rpc('judge_accusation', { p_operation_id: operationId, p_caught: true }),
+        { hint: 'not_your_op' }, `${intruder.name} judge_accusation`)
+      await refused(intruder.client.rpc('write_case_file', { p_operation_id: operationId, p_text: 'Not my op' }),
+        { hint: 'not_your_op' }, `${intruder.name} write_case_file`)
+    }
+
+    assert.deepEqual(await snapshot(), before, 'a refused call still changed the operation or a card')
+  })
+
+  it("an outsider can't write missions, start operations or sweep in someone else's circle", async () => {
+    await refused(D.client.rpc('create_mission', { p_circle_id: circleId, p_text: 'Infiltrate the boys', p_tier: 1 }),
+      { hint: 'not_member' }, 'D create_mission')
+    await refused(D.client.rpc('start_operation', { p_circle_id: circleId, p_partner_id: A.id }),
+      { hint: 'not_member' }, 'D start_operation')
+    await refused(D.client.rpc('sweep_went_dark', { p_circle_id: circleId }),
+      { hint: 'not_member' }, 'D sweep_went_dark')
+
+    const dMissions = await ok(D.client.from('missions').select('id').eq('author_id', D.id))
+    assert.equal(dMissions.length, 0, "D's refused mission was saved anyway")
+    const ops = await ok(A.client.from('operations').select('id').eq('circle_id', circleId))
+    assert.deepEqual(ops.map((o: Loose) => o.id), [operationId], "D's refused operation was created anyway")
+  })
+
+  it('an operation partner must be someone else in the circle', async () => {
+    await refused(A.client.rpc('start_operation', { p_circle_id: circleId, p_partner_id: D.id }),
+      { hint: 'partner_not_member' }, 'A starts an operation with outsider D')
+    await refused(A.client.rpc('start_operation', { p_circle_id: circleId, p_partner_id: A.id }),
+      { hint: 'self_op' }, 'A starts an operation with A')
+
+    const ops = await ok(A.client.from('operations').select('id').eq('circle_id', circleId))
+    assert.deepEqual(ops.map((o: Loose) => o.id), [operationId], 'a refused operation was created anyway')
+    const dCards = await ok(D.client.from('assignments').select('id'))
+    assert.equal(dCards.length, 0, 'outsider D was dealt a card')
+  })
+
   it('before the reveal, an agent sees only their own card', async () => {
     const all = await ok(A.client.from('assignments').select('*').eq('operation_id', operationId))
     assert.equal(all.length, 1)
@@ -300,6 +353,21 @@ describe('secrecy', () => {
     }
     const outsider = await ok(D.client.from('assignments').select('*').eq('operation_id', operationId))
     assert.equal(outsider.length, 0, 'outsider can see revealed cards')
+  })
+
+  it('after the reveal, still only the agents can rule, write case files, or debrief again', async () => {
+    for (const intruder of [C, D]) {
+      await refused(intruder.client.rpc('judge_accusation', { p_operation_id: operationId, p_caught: true }),
+        { hint: 'not_your_op' }, `${intruder.name} judge_accusation after reveal`)
+      await refused(intruder.client.rpc('write_case_file', { p_operation_id: operationId, p_text: 'Not my op' }),
+        { hint: 'not_your_op' }, `${intruder.name} write_case_file after reveal`)
+      await refused(intruder.client.rpc('submit_debrief', {
+        p_operation_id: operationId, p_completed: true, p_accused_decoy: true,
+      }), { hint: 'not_your_op' }, `${intruder.name} submit_debrief after reveal`)
+    }
+    const cards = await ok(C.client.from('assignments').select('caught, case_file').eq('operation_id', operationId))
+    assert.deepEqual(cards, [{ caught: null, case_file: null }, { caught: null, case_file: null }],
+      'a refused verdict or case file was saved anyway')
   })
 
   it('verdicts score by the rules and case files reach the circle', async () => {
