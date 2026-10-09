@@ -6,7 +6,7 @@ import {
   submitDebrief, writeCaseFile,
 } from '../lib/api'
 import { TIER_NAMES } from '../lib/platform'
-import { useAgent } from '../lib/session'
+import { useAgent } from '../lib/sessionContext'
 import { formatDay } from '../lib/time'
 import type { Award, Card as CardRow, Operation } from '../lib/types'
 import { useLoad } from '../lib/useLoad'
@@ -156,6 +156,9 @@ function DebriefForm({ op, targetName, onFiled, onBack }: { op: Operation; targe
       await onFiled()
     } catch (err) {
       setError(errorMessage(err))
+    } finally {
+      // Normally this form is gone by now. If the refresh failed, don't leave
+      // the button stuck on "Filing…".
       setBusy(false)
     }
   }

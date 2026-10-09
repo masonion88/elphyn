@@ -2,7 +2,7 @@ import { useState, type FormEvent } from 'react'
 import { Button, Card, Choice, Loading, Notice, Screen, Section, TextArea, Title } from '../components/ui'
 import { createMission, errorMessage, getCircle, getRoster, listMyMissions } from '../lib/api'
 import { TIER_NAMES } from '../lib/platform'
-import { useAgent } from '../lib/session'
+import { useAgent } from '../lib/sessionContext'
 import { useLoad } from '../lib/useLoad'
 
 export function WriteMission({ circleId }: { circleId: string }) {

@@ -1,6 +1,7 @@
 import { Button, LinkButton, Loading, Notice, Screen, Title } from './components/ui'
 import { match, usePath } from './lib/router'
-import { SessionProvider, useSession } from './lib/session'
+import { SessionProvider } from './lib/session'
+import { useSession } from './lib/sessionContext'
 import { configError } from './lib/supabase'
 import { CirclePage } from './screens/CirclePage'
 import { Codename } from './screens/Codename'

@@ -3,7 +3,7 @@ import { Button, Card, Link, LinkButton, Loading, Notice, Screen, Section, Stamp
 import {
   getCircle, getLeaderboard, getMyCardStates, getRoster, listOperations, sweepWentDark,
 } from '../lib/api'
-import { useAgent } from '../lib/session'
+import { useAgent } from '../lib/sessionContext'
 import { formatDay } from '../lib/time'
 import type { Operation } from '../lib/types'
 import { useLoad } from '../lib/useLoad'
@@ -165,8 +165,9 @@ function InviteButton({ code }: { code: string }) {
       try {
         await navigator.share({ title: 'Pigeon Ops', text, url })
         return
-      } catch {
-        // Cancelled or unsupported: fall through to copying.
+      } catch (e) {
+        if (e instanceof DOMException && e.name === 'AbortError') return // they closed the share sheet
+        // Share failed for another reason: fall through to copying.
       }
     }
     await navigator.clipboard?.writeText(`${text}\n${url}`)

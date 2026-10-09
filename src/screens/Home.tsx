@@ -1,7 +1,7 @@
 import { Card, Link, LinkButton, Loading, Notice, Screen, Stamp } from '../components/ui'
 import { listMyCircles } from '../lib/api'
 import { agentNumber } from '../lib/platform'
-import { useAgent } from '../lib/session'
+import { useAgent } from '../lib/sessionContext'
 import { useLoad } from '../lib/useLoad'
 
 const DECK_LABEL = { chaos: 'Chaos · classified dossier', tender: 'Tender · field notes' }

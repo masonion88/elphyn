@@ -3,7 +3,7 @@ import { Button, Notice, Screen, TextInput, Title } from '../components/ui'
 import { errorMessage } from '../lib/api'
 import { agentNumber, isIPhone, isStandalone } from '../lib/platform'
 import { navigate, usePath } from '../lib/router'
-import { useSession } from '../lib/session'
+import { useSession } from '../lib/sessionContext'
 
 // Shown on the /join screen to iPhone users still in Safari, before they create
 // an identity. Safari and the Home Screen app keep separate storage, so an

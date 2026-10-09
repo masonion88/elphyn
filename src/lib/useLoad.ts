@@ -12,12 +12,16 @@ export function useLoad<T>(load: () => Promise<T>, pollMs: number | null = null)
     loadRef.current = load
   })
 
+  // Only the most recently started load may update the screen. Otherwise a slow
+  // poll that started before a debrief could land after it and show stale state.
+  const latest = useRef(0)
   const reload = useCallback(async () => {
+    const request = ++latest.current
     try {
       const data = await loadRef.current()
-      setState({ data, error: null, loading: false })
+      if (request === latest.current) setState({ data, error: null, loading: false })
     } catch (e) {
-      setState((s) => ({ ...s, error: errorMessage(e), loading: false }))
+      if (request === latest.current) setState((s) => ({ ...s, error: errorMessage(e), loading: false }))
     }
   }, [])
 

@@ -1,36 +1,39 @@
-import { createContext, useCallback, useContext, useEffect, useState, type ReactNode } from 'react'
+import { isAuthRetryableFetchError } from '@supabase/supabase-js'
+import { useCallback, useEffect, useState, type ReactNode } from 'react'
 import { errorMessage, getProfile, HQError, setDisplayName } from './api'
+import { SessionContext, type SessionState } from './sessionContext'
 import { supabase } from './supabase'
-import type { Profile } from './types'
 
-type SessionState =
-  | { status: 'loading' }
-  | { status: 'needs-codename'; uid: string | null }
-  | { status: 'ready'; uid: string; profile: Profile }
-  | { status: 'error'; message: string }
+const NO_SIGNAL = "No signal. Your agent is safe on this phone. Try again when you're back online."
 
-type SessionValue = {
-  state: SessionState
-  enlist: (name: string) => Promise<void>
-  rename: (name: string) => Promise<void>
+async function boot(): Promise<SessionState> {
+  const { data, error } = await supabase.auth.getSession()
+  // An expired token that can't refresh offline comes back as "no session", but
+  // the agent's credentials are still saved. Never offer a new codename then:
+  // that would create a new agent over the real one.
+  if (error && isAuthRetryableFetchError(error)) return { status: 'error', message: NO_SIGNAL }
+
+  const uid = data.session?.user.id ?? null
+  if (!uid) return { status: 'needs-codename', uid: null }
+
+  const profile = await getProfile(uid)
+  if (profile) return { status: 'ready', uid, profile }
+
+  // Signed in but never named. Make sure the account still exists before reusing it.
+  const { error: userError } = await supabase.auth.getUser()
+  if (userError && isAuthRetryableFetchError(userError)) return { status: 'error', message: NO_SIGNAL }
+  if (userError) {
+    await supabase.auth.signOut({ scope: 'local' })
+    return { status: 'needs-codename', uid: null }
+  }
+  return { status: 'needs-codename', uid }
 }
-
-const SessionContext = createContext<SessionValue | null>(null)
 
 export function SessionProvider({ children }: { children: ReactNode }) {
   const [state, setState] = useState<SessionState>({ status: 'loading' })
 
   useEffect(() => {
-    ;(async () => {
-      try {
-        const { data } = await supabase.auth.getSession()
-        const uid = data.session?.user.id ?? null
-        const profile = uid ? await getProfile(uid) : null
-        setState(uid && profile ? { status: 'ready', uid, profile } : { status: 'needs-codename', uid })
-      } catch (e) {
-        setState({ status: 'error', message: errorMessage(e) })
-      }
-    })()
+    boot().then(setState, (e) => setState({ status: 'error', message: errorMessage(e) }))
   }, [])
 
   // Signs in anonymously only now, when someone actually picks a codename, so
@@ -60,17 +63,4 @@ export function SessionProvider({ children }: { children: ReactNode }) {
   }, [state])
 
   return <SessionContext.Provider value={{ state, enlist, rename }}>{children}</SessionContext.Provider>
-}
-
-export function useSession(): SessionValue {
-  const value = useContext(SessionContext)
-  if (!value) throw new Error('useSession outside SessionProvider')
-  return value
-}
-
-// For screens behind the codename gate.
-export function useAgent(): { uid: string; profile: Profile } {
-  const { state } = useSession()
-  if (state.status !== 'ready') throw new Error('useAgent before the agent is ready')
-  return { uid: state.uid, profile: state.profile }
 }
