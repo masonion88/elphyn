@@ -1,0 +1,606 @@
+{
+  "_readme": "Seed content for Elphyn. The tender_deck came from the Pigeon Ops decks Mason already reviewed (Oct 2026). Everything marked placeholder was written by Claude for the Zoo for Two prototype: keep, rewrite, or delete in your own words before Claire sees it. Claire adding her own hypotheticals and missions is the real deck.",
+  "tender_deck": {
+    "source": "pigeon-ops decks.sql (Mason-reviewed)",
+    "missions": [
+      {
+        "tier": 1,
+        "text": "Make them laugh within the first 60 seconds."
+      },
+      {
+        "tier": 1,
+        "text": "Get them to share an elephant fact."
+      },
+      {
+        "tier": 1,
+        "text": "Get them to make a chicken noise."
+      },
+      {
+        "tier": 1,
+        "text": "Get them to name a bird that isn't a pigeon, crow, or seagull."
+      },
+      {
+        "tier": 1,
+        "text": "Plan a fake date where you're your animals: a turtle and a chicken."
+      },
+      {
+        "tier": 2,
+        "text": "Answer their next hypothetical with a number, a name, and an exact time."
+      },
+      {
+        "tier": 2,
+        "text": "Ask them a hypothetical before they can ask you one."
+      },
+      {
+        "tier": 2,
+        "text": "Get them to answer one of your hypotheticals more specifically than you would."
+      },
+      {
+        "tier": 2,
+        "text": "Get them to decide whether they're more chicken or elephant today, with three reasons."
+      },
+      {
+        "tier": 2,
+        "text": "Get them to rule whether you're more turtle or dog today, with three reasons."
+      },
+      {
+        "tier": 2,
+        "text": "Get them to do an elephant impression."
+      },
+      {
+        "tier": 2,
+        "text": "Get them to say one thing they're proud of this week."
+      },
+      {
+        "tier": 2,
+        "text": "Get them to compliment themselves without adding \"I guess.\""
+      },
+      {
+        "tier": 2,
+        "text": "Give them a compliment so specific they ask how you noticed."
+      },
+      {
+        "tier": 3,
+        "text": "Get them to find a real bird outside and describe it to you."
+      },
+      {
+        "tier": 3,
+        "text": "Be a turtle for the whole call: everything slow. Don't break until they ask."
+      },
+      {
+        "tier": 3,
+        "text": "Get them to do a chicken walk on camera."
+      },
+      {
+        "tier": 3,
+        "text": "Read them three lines of something you wrote."
+      }
+    ]
+  },
+  "extra_missions": {
+    "source": "placeholder (Claude, Zoo prototype)",
+    "missions": [
+      {
+        "tier": 2,
+        "text": "Get them to say the word “pineapple” without asking them to."
+      },
+      {
+        "tier": 2,
+        "text": "Work the phrase “as the prophecy foretold” into the conversation naturally."
+      },
+      {
+        "tier": 2,
+        "text": "Make three animal noises during the call, each disguised as a cough, sneeze, or laugh."
+      },
+      {
+        "tier": 2,
+        "text": "Convince them you adopted a pet goose named Gerald. Stay in character for three minutes."
+      },
+      {
+        "tier": 2,
+        "text": "Use the word “consequently” five times."
+      },
+      {
+        "tier": 2,
+        "text": "Find out their favorite cheese without asking anything about cheese."
+      },
+      {
+        "tier": 2,
+        "text": "Answer every question with another question for two straight minutes."
+      },
+      {
+        "tier": 2,
+        "text": "Hum the same song three times until they start humming it too."
+      },
+      {
+        "tier": 2,
+        "text": "Slip a fake fun fact into the conversation and see if they believe it."
+      },
+      {
+        "tier": 2,
+        "text": "Get them to say “I love you” first, without asking for it."
+      },
+      {
+        "tier": 2,
+        "text": "Compliment them three times, each more specific than the last, without them noticing a pattern."
+      },
+      {
+        "tier": 2,
+        "text": "Mention a made-up celebrity as if everyone knows who they are."
+      },
+      {
+        "tier": 2,
+        "text": "Mirror their posture on video for five minutes."
+      },
+      {
+        "tier": 2,
+        "text": "Get them to recommend you a movie, then act like you’ve already seen it and loved it."
+      },
+      {
+        "tier": 2,
+        "text": "Say “indubitably” at least twice."
+      },
+      {
+        "tier": 2,
+        "text": "Make them laugh within the first thirty seconds."
+      },
+      {
+        "tier": 2,
+        "text": "Bring up penguins three separate times, each in a different context."
+      },
+      {
+        "tier": 2,
+        "text": "Convince them you’ve taken up competitive yodeling."
+      },
+      {
+        "tier": 2,
+        "text": "Get them to agree to a dance-off the next time you’re together."
+      },
+      {
+        "tier": 2,
+        "text": "Narrate one moment of the call in a nature-documentary voice without breaking."
+      },
+      {
+        "tier": 2,
+        "text": "Get them to name a pet you’ll have someday."
+      },
+      {
+        "tier": 2,
+        "text": "Use a different accent for exactly one sentence, then never acknowledge it."
+      },
+      {
+        "tier": 2,
+        "text": "Start a sentence, pause dramatically for five seconds, then finish it like nothing happened."
+      },
+      {
+        "tier": 2,
+        "text": "Get them to describe the view from their window in detail."
+      },
+      {
+        "tier": 2,
+        "text": "Declare that today is a made-up national day and get them to celebrate it."
+      },
+      {
+        "tier": 2,
+        "text": "Get them to rate three random things out of ten, then reveal it was a personality quiz."
+      },
+      {
+        "tier": 2,
+        "text": "Get them to say their animal of the day without asking “what animal are you?”"
+      },
+      {
+        "tier": 2,
+        "text": "Wear a hat on video and act like it’s completely normal."
+      },
+      {
+        "tier": 2,
+        "text": "Have a stuffed animal silently appear in the background and move it between shots."
+      },
+      {
+        "tier": 2,
+        "text": "Get them to sing one line of any song."
+      },
+      {
+        "tier": 2,
+        "text": "Agree with everything they say for two minutes, enthusiastically."
+      },
+      {
+        "tier": 2,
+        "text": "Use three words you’ve never said out loud before."
+      },
+      {
+        "tier": 2,
+        "text": "Describe your day as an epic quest for one full minute."
+      },
+      {
+        "tier": 2,
+        "text": "Get them to tell you a childhood memory you’ve never heard."
+      },
+      {
+        "tier": 2,
+        "text": "Convince them you can hear the ocean from where you are."
+      },
+      {
+        "tier": 2,
+        "text": "Review your last meal like a very serious food critic."
+      },
+      {
+        "tier": 2,
+        "text": "Say “plot twist” before two completely unremarkable statements."
+      },
+      {
+        "tier": 2,
+        "text": "End the call by granting them an official title, like Duchess of Snacks."
+      },
+      {
+        "tier": 2,
+        "text": "Get them to make a promise about something completely silly."
+      },
+      {
+        "tier": 2,
+        "text": "Tell them you’re proud of them for something specific, without it sounding planned."
+      },
+      {
+        "tier": 2,
+        "text": "Narrate one small thing you’re doing in the third person."
+      },
+      {
+        "tier": 2,
+        "text": "Get them to try a tongue twister."
+      },
+      {
+        "tier": 2,
+        "text": "End the call on a cliffhanger story you’ll finish next time."
+      },
+      {
+        "tier": 2,
+        "text": "Count how many times they say “like.” Reveal the number only at the end."
+      },
+      {
+        "tier": 2,
+        "text": "Slip in a compliment in a language you barely speak."
+      },
+      {
+        "tier": 2,
+        "text": "Act mildly scandalized by something mundane they mention, like their sock color."
+      },
+      {
+        "tier": 2,
+        "text": "Plan an imaginary vacation together in under two minutes."
+      },
+      {
+        "tier": 2,
+        "text": "Use the word “flabbergasted” correctly."
+      },
+      {
+        "tier": 2,
+        "text": "Treat your phone like a walkie-talkie for one exchange. Over."
+      },
+      {
+        "tier": 2,
+        "text": "Get them to describe their perfect sandwich in detail."
+      }
+    ]
+  },
+  "hypotheticals_dice": {
+    "source": "placeholder (Claude, Zoo prototype); a backup for when nobody has one, never a replacement for hers",
+    "items": [
+      "If we were both animals at the same zoo, which enclosure would we escape from first, and how?",
+      "You can mail me exactly one smell. Which one, and how do you package it?",
+      "If your stuffed animal came to life for 24 hours, what’s the first thing it would complain about?",
+      "You wake up as a chicken who still has to attend all your classes today. Who notices first?",
+      "If our relationship were a restaurant, what’s on the menu, and what does the one-star review say?",
+      "You have to replace one of my bones with a household object. Which bone, which object?",
+      "If you could only communicate through interpretive dance for a week, what would “I miss you” look like?",
+      "A turtle and an elephant open a small business. What do they sell, and who handles customer service?",
+      "You get to rename one day of the week. What’s it called now, and what happens on it?",
+      "If I were a kitchen appliance, which one, and what’s my fatal flaw?",
+      "You can teleport, but only to places exactly 3,000 miles from where you’re standing. Where do you go first?",
+      "A pigeon steals your lunch. What’s your villain origin story?",
+      "Zombie apocalypse, right now, and all you have is what’s in your bag. What’s the plan?",
+      "You’re a ghost haunting a library. What do you rearrange, and why?",
+      "Which fruit would make the worst president, and what’s its first executive order?",
+      "If all the animals we’ve ever pretended to be had a group chat, what’s the most recent message?",
+      "You can add one rule to every airport in the world. What is it?",
+      "If you were a font, which one, and who keeps misusing you?",
+      "We’re two mice living in a museum. Which exhibit is home, and what’s our nightly route?",
+      "You wake up and every bird can talk, but only to you. What do they keep complaining about?",
+      "We get one time capsule to open in ten years. What goes in, and what does the note say?",
+      "A wizard turns you into a lamp for a day. Whose room are you in, and what do you witness?",
+      "What’s the most dramatic possible way to deliver a sandwich to me across the country?",
+      "If clouds had personalities, which kind of cloud are you, and what’s your problem?",
+      "You’re mayor of a town populated entirely by dogs. What’s your first big infrastructure project?",
+      "Describe me using only weather. What’s the forecast?",
+      "One object in your room becomes sentient. Which one, and what’s its first question?",
+      "We’re a duo in a heist movie. What are we stealing, and who messes up?",
+      "A genie grants three wishes, but each has to cost under five dollars. What do you pick?",
+      "You swap lives with any animal for a week. Which one, and what’s the hardest part?",
+      "If you were a cereal mascot, what’s the cereal and what’s your catchphrase?",
+      "You’re stuck in an elevator with a raccoon for two hours. How does it end?",
+      "If our love were measured in a weird unit, what’s the unit, and how many do we have?",
+      "For a month you can only eat foods of one color. Which color?",
+      "A tiny orchestra follows you for a day. Which moment needs the most dramatic music?",
+      "You get to invent a holiday just for us. What’s it called, and what are the traditions?",
+      "The moon has a customer service line. What do you complain about?",
+      "Which household chore would be an Olympic sport if you were the judge?",
+      "You have a tail for a day. What kind, and what does it give away about your feelings?",
+      "You’re a chef and I’m the food critic. What dish do you make to win me over?",
+      "We each get a sidekick animal. Which ones, and do they get along?",
+      "Write a strongly worded letter to a vegetable. Which vegetable, and what’s the first line?",
+      "You find a secret door in your room. Where does it lead?",
+      "You can talk to one historical figure, but only through charades. Who, and what do you try to ask?",
+      "You shrink to the size of a bee for one afternoon. Where do you go?",
+      "Which animal would be the most annoying roommate, and what’s its worst habit?",
+      "If our phone calls were a TV show, what’s the title, and what does the theme song sound like?",
+      "You get a free billboard for a week. What does it say?",
+      "If you were a dessert, what kind, and how do you react when someone eats you?",
+      "You can make it rain one thing that isn’t water for ten minutes. What falls?",
+      "If your life had a laugh track, which moment this week gets the biggest laugh?",
+      "A dragon moves in next door. How do you become friends?",
+      "You become fluent in one animal’s language. Which, and what’s the first conversation?",
+      "You get to rename three buildings on your campus. What are the new names?",
+      "If your laptop could talk, what would it beg you to stop doing?",
+      "You’re a penguin giving a TED talk. What’s the topic?",
+      "We build a blanket fort big enough to live in. What rooms does it have?",
+      "One button lets you skip one boring thing forever. What do you skip?",
+      "A snail becomes your personal assistant. How does your week go?",
+      "Which kitchen utensil best represents your personality today?",
+      "You’re an elephant who never forgets. What’s the most useless thing you remember?",
+      "You get dinner with any cartoon character. Who, and what do you order?",
+      "We swap hometowns for a year. What’s the first thing you do in mine?",
+      "You find a tiny door at the base of a tree. Who answers when you knock?",
+      "If your shadow had opinions, what would it say about you?",
+      "A turtle challenges you to a race and wins. How do you explain it to your friends?",
+      "You can only use three emoji for the rest of your life. Which three?",
+      "You’re a lighthouse. Who do you guide, and what do you think about all night?",
+      "Our relationship gets a mascot. What is it, and what’s its signature dance?",
+      "Any animal can be made the size of a house cat. Which one do you keep as a pet?",
+      "You’re a weather forecaster for feelings. What’s today’s report for you?",
+      "You get one superpower, but it only works on Tuesdays. What is it?",
+      "If our voicemails were museum exhibits, what would the plaque say?",
+      "You’re a sock that got lost in the dryer. Where did you actually go?",
+      "Every textbook gets one smell. Which smell for which subject?",
+      "You win a lifetime supply of something weird. What is it, and how do you use it?",
+      "If we were constellations, what shapes are we, and what’s the myth?",
+      "You’re a chicken running for class president. What’s your campaign slogan?",
+      "If the ocean could send one text, who would it text, and what would it say?",
+      "You can give the human body one upgrade. What is it?",
+      "Your favorite food goes on strike. What are its demands?",
+      "We’re trapped inside a board game. Which game, and who wins?",
+      "You can hear one person’s thoughts for one minute. Whose, and when?",
+      "A raccoon offers you a deal behind a dumpster. What’s the deal, and do you take it?",
+      "You can make one place on earth completely silent for an hour. Where?",
+      "You’re a houseplant. What do you want your owner to know?",
+      "You have to wear a costume to every class for a week. Which costume?",
+      "You choose the sound your phone makes when I text you. What is it?",
+      "A nature documentary narrator tells our love story. What’s the opening line?",
+      "A map shows treasure buried under your campus. What’s the treasure?",
+      "You can pass one law that only applies to cats. What is it?",
+      "You visit any fictional world as a background character. Which world, and what’s your job?",
+      "Time pauses for everyone but us for one hour. What do we do?",
+      "You’re a vending machine. What do you dispense, and what does it cost?",
+      "We raise a baby dinosaur together. What do we name it, and who’s the strict parent?",
+      "You can relive one ordinary day from this year. Which one?",
+      "I’m a turtle and you’re an elephant. Who carries who across the river, and how?",
+      "If you could put one thing from your city in my city, what would it be?",
+      "What would our two animals argue about on a long road trip?",
+      "You can hire a duck to follow you around and quack whenever someone lies. Do you hire it, and where do you take it first?"
+    ]
+  },
+  "same_moment_questions": {
+    "source": "placeholder (Claude, Zoo prototype)",
+    "items": [
+      "What’s the light like where you are right now?",
+      "What’s the nearest sound you can hear?",
+      "Describe what you’re wearing like it’s a museum piece.",
+      "Review the last thing you ate in one sentence.",
+      "What’s one thing within arm’s reach that tells a story?",
+      "What did the sky look like today?",
+      "What’s something small that made you smile today?",
+      "If today were a color, which one?",
+      "What’s the temperature where you are, and how do you feel about it?",
+      "What’s one thing you wish I could see right now?",
+      "Rate your energy from turtle to cheetah.",
+      "What song is stuck in your head?",
+      "What’s one thing you learned today?",
+      "What’s the weirdest thing you saw today?",
+      "What are you looking forward to tomorrow?",
+      "What would we be doing right now if I were there?",
+      "Describe your room in three words.",
+      "What’s one thing you’re proud of from today?",
+      "What’s on your desk right now?",
+      "What did someone say today that stuck with you?",
+      "What’s the best smell you came across today?",
+      "What animal were you at 3pm today?",
+      "Where’s the coziest spot near you right now?",
+      "What would you tell this morning’s version of you?",
+      "What tiny thing annoyed you today? Make it dramatic.",
+      "What did you almost do today but didn’t?",
+      "What’s outside your window, exactly?",
+      "What’s next on your to-do list, and how do you feel about it?",
+      "What’s one thing you noticed about a stranger today?",
+      "If today had a title, what is it?",
+      "What’s one thing you’ve wanted to tell me but haven’t yet?",
+      "What made you think of me today?",
+      "Describe the last photo on your camera roll without showing it.",
+      "What’s your plan for the next hour?",
+      "What’s something you’re grateful for right now?",
+      "Pick one word for today."
+    ]
+  },
+  "animals": {
+    "source": "Zoo prototype",
+    "items": [
+      {
+        "name": "turtle",
+        "emoji": "🐢"
+      },
+      {
+        "name": "dog",
+        "emoji": "🐕"
+      },
+      {
+        "name": "chicken",
+        "emoji": "🐔"
+      },
+      {
+        "name": "elephant",
+        "emoji": "🐘"
+      },
+      {
+        "name": "cat",
+        "emoji": "🐈"
+      },
+      {
+        "name": "otter",
+        "emoji": "🦦"
+      },
+      {
+        "name": "penguin",
+        "emoji": "🐧"
+      },
+      {
+        "name": "frog",
+        "emoji": "🐸"
+      },
+      {
+        "name": "owl",
+        "emoji": "🦉"
+      },
+      {
+        "name": "bear",
+        "emoji": "🐻"
+      },
+      {
+        "name": "fox",
+        "emoji": "🦊"
+      },
+      {
+        "name": "duck",
+        "emoji": "🦆"
+      },
+      {
+        "name": "rabbit",
+        "emoji": "🐇"
+      },
+      {
+        "name": "hedgehog",
+        "emoji": "🦔"
+      },
+      {
+        "name": "sloth",
+        "emoji": "🦥"
+      },
+      {
+        "name": "koala",
+        "emoji": "🐨"
+      },
+      {
+        "name": "panda",
+        "emoji": "🐼"
+      },
+      {
+        "name": "whale",
+        "emoji": "🐋"
+      },
+      {
+        "name": "octopus",
+        "emoji": "🐙"
+      },
+      {
+        "name": "bee",
+        "emoji": "🐝"
+      },
+      {
+        "name": "snail",
+        "emoji": "🐌"
+      },
+      {
+        "name": "flamingo",
+        "emoji": "🦩"
+      },
+      {
+        "name": "raccoon",
+        "emoji": "🦝"
+      },
+      {
+        "name": "mouse",
+        "emoji": "🐁"
+      },
+      {
+        "name": "giraffe",
+        "emoji": "🦒"
+      },
+      {
+        "name": "dinosaur",
+        "emoji": "🦕"
+      },
+      {
+        "name": "pig",
+        "emoji": "🐷"
+      },
+      {
+        "name": "seal",
+        "emoji": "🦭"
+      },
+      {
+        "name": "parrot",
+        "emoji": "🦜"
+      },
+      {
+        "name": "hamster",
+        "emoji": "🐹"
+      }
+    ]
+  },
+  "moods": {
+    "source": "Zoo prototype",
+    "items": [
+      "sleepy",
+      "chaotic",
+      "cozy",
+      "brave",
+      "grumpy",
+      "sparkly",
+      "hungry",
+      "wobbly",
+      "smug",
+      "soggy",
+      "zoomy",
+      "cuddly",
+      "determined",
+      "dramatic",
+      "peaceful",
+      "feral",
+      "homesick",
+      "giggly"
+    ]
+  },
+  "jar_starters": {
+    "source": "placeholder (Claude, Zoo prototype)",
+    "items": [
+      "I’m proud of you for…",
+      "Something you did lately that I noticed…",
+      "You’re better than you think at…",
+      "The bravest thing I’ve seen you do…",
+      "I love the way you…",
+      "Thank you for…",
+      "A moment with you I keep replaying…"
+    ]
+  },
+  "open_when_titles": {
+    "source": "placeholder (Claude, Zoo prototype)",
+    "items": [
+      "Open when you miss me",
+      "Open when you can’t sleep",
+      "Open when you’re stressed about finals",
+      "Open when you need to laugh",
+      "Open when you doubt yourself",
+      "Open when it’s raining",
+      "Open when you had a great day",
+      "Open when you’re homesick",
+      "Open when you’re mad at me",
+      "Open when you need a pep talk"
+    ]
+  }
+}
