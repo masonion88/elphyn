@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="80 168 364 256" role="img" aria-label="Turtlephant">
+  <!-- Turtlephant: a baby elephant in a turtle shell. Placeholder art; swap in a real drawing anytime. -->
+  <ellipse cx="270" cy="410" rx="150" ry="14" fill="#2f3a33" opacity="0.08"/>
+  <rect x="318" y="316" width="44" height="84" rx="22" fill="#8fa4b6"/>
+  <rect x="212" y="316" width="44" height="84" rx="22" fill="#8fa4b6"/>
+  <path d="M412 300 q26 4 24 30" stroke="#8fa4b6" stroke-width="9" fill="none" stroke-linecap="round"/>
+  <ellipse cx="296" cy="300" rx="122" ry="80" fill="#a7bacb"/>
+  <path d="M182 292 C184 184 408 184 410 292 Z" fill="#5e9471"/>
+  <path d="M296 206 l34 20 v38 l-34 20 l-34 -20 v-38 z" fill="#7fb38f"/>
+  <path d="M232 238 l26 15 v30 l-26 15 l-26 -15 v-30 z" fill="#7fb38f"/>
+  <path d="M360 238 l26 15 v30 l-26 15 l-26 -15 v-30 z" fill="#7fb38f"/>
+  <path d="M176 292 Q296 320 416 292" stroke="#477359" stroke-width="16" fill="none" stroke-linecap="round"/>
+  <rect x="238" y="328" width="46" height="82" rx="22" fill="#a7bacb"/>
+  <rect x="342" y="328" width="46" height="82" rx="22" fill="#a7bacb"/>
+  <path d="M246 404 h30 M350 404 h30" stroke="#f4efe4" stroke-width="6" stroke-linecap="round" opacity="0.7"/>
+  <circle cx="168" cy="252" r="76" fill="#a7bacb"/>
+  <path d="M190 194 C252 184 264 270 216 296 C198 305 182 290 186 270 Z" fill="#8fa4b6"/>
+  <path d="M112 272 C88 300 90 346 122 360 C138 366 150 352 140 342 C120 330 122 306 140 286 Z" fill="#a7bacb"/>
+  <circle cx="146" cy="236" r="10" fill="#2f3a33"/>
+  <circle cx="149.5" cy="232.5" r="3.5" fill="#fffcf5"/>
+  <ellipse cx="126" cy="266" rx="12" ry="8" fill="#e9a197" opacity="0.85"/>
+  <path d="M152 286 q12 8 22 0" stroke="#5d6e7d" stroke-width="5" fill="none" stroke-linecap="round"/>
+</svg>

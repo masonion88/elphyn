@@ -1,29 +1,17 @@
 @import "tailwindcss";
 
-/* Default look: the classified dossier (chaos circles and everything outside a circle). */
+/* Elphyn: soft field-notes paper, sage, and a warm coral for the important bits. */
 @theme {
-  --color-paper: #f4e9cf;
-  --color-card: #fffaee;
-  --color-ink: #221c17;
-  --color-muted: #6f6150;
-  --color-line: #d8c59b;
-  --color-stamp: #c0262d;
-  --color-accent: #221c17;
-  --color-accent-ink: #fff8e6;
-  --color-good: #2f7d4f;
+  --color-paper: #f4efe4;
+  --color-card: #fffcf5;
+  --color-ink: #2f3a33;
+  --color-muted: #6b7568;
+  --color-line: #ddd6c4;
+  --color-stamp: #d0705f;
+  --color-accent: #4f7a63;
+  --color-accent-ink: #fffcf5;
+  --color-good: #3f7d58;
   --font-type: ui-monospace, "SF Mono", "Cascadia Mono", Menlo, Consolas, monospace;
-}
-
-/* Tender circles: softer "field notes". Same app, gentler palette. */
-[data-deck="tender"] {
-  --color-paper: #eceee2;
-  --color-card: #fffdf5;
-  --color-ink: #2b3832;
-  --color-muted: #66715f;
-  --color-line: #cdd5c0;
-  --color-stamp: #cf6f5d;
-  --color-accent: #4c7760;
-  --color-accent-ink: #fffdf5;
 }
 
 html {
@@ -36,9 +24,9 @@ body {
 }
 
 @keyframes stamp-in {
-  0% { transform: scale(1.6) rotate(-8deg); opacity: 0; }
-  60% { transform: scale(0.95) rotate(-8deg); opacity: 1; }
-  100% { transform: scale(1) rotate(-8deg); opacity: 1; }
+  0% { transform: scale(1.4) rotate(-4deg); opacity: 0; }
+  60% { transform: scale(0.97) rotate(-4deg); opacity: 1; }
+  100% { transform: scale(1) rotate(-4deg); opacity: 1; }
 }
 
 .animate-stamp {

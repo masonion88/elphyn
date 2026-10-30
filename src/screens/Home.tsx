@@ -1,57 +1,48 @@
-import { Card, Link, LinkButton, Loading, Notice, Screen, Stamp } from '../components/ui'
-import { listMyCircles } from '../lib/api'
-import { agentNumber } from '../lib/platform'
-import { useAgent } from '../lib/sessionContext'
-import { useLoad } from '../lib/useLoad'
+import { Card, Link, Screen } from '../components/ui'
+import { animalEmoji } from '../lib/content'
+import { useMe } from '../lib/sessionContext'
+import type { Couple } from '../lib/types'
 
-const DECK_LABEL = { chaos: 'Chaos · classified dossier', tender: 'Tender · field notes' }
+function localTime(timezone: string): string {
+  return new Date().toLocaleTimeString(undefined, { timeZone: timezone, hour: 'numeric', minute: '2-digit' })
+}
 
-export function Home() {
-  const { uid, profile } = useAgent()
-  const circles = useLoad(listMyCircles)
+// Phase A home: just the two of you and the setup screens. The real rooms
+// (Today, hypotheticals, the jar, letters) arrive in Phase B.
+export function Home({ couple }: { couple: Couple }) {
+  const { uid } = useMe()
+  const me = couple.members.find((m) => m.id === uid)
+  const partner = couple.members.find((m) => m.id !== uid)
 
   return (
     <Screen>
-      <header className="mb-8 pt-4 text-center">
-        <Stamp>Classified</Stamp>
-        <h1 className="mt-4 text-4xl font-black">Pigeon Ops</h1>
-        <p className="mt-2 text-lg text-muted">Welcome back, Agent {profile.display_name}.</p>
+      <header className="pt-6 pb-8 text-center">
+        <img src="/icons/turtlephant.svg" alt="" className="mx-auto h-24 w-24" />
+        <h1 className="mt-3 text-4xl font-black">Elphyn</h1>
       </header>
 
-      {circles.loading && <Loading />}
-      {circles.error && <Notice tone="error">{circles.error}</Notice>}
-      {circles.data && circles.data.length === 0 && (
-        <Card className="text-center">
-          <p className="text-lg font-bold">No circles yet.</p>
-          <p className="mt-1 text-muted">
-            Every great spy ring starts with one pigeon and a group chat. Start one, or join with the code a friend sent you.
-          </p>
-        </Card>
-      )}
-      {circles.data && circles.data.length > 0 && (
-        <ul className="space-y-3">
-          {circles.data.map((c) => (
-            <li key={c.id} data-deck={c.deck}>
-              <Link to={`/c/${c.id}`} className="block rounded-3xl border-2 border-line bg-card p-5 active:scale-[0.98]">
-                <p className="text-xl font-black">{c.name}</p>
-                <p className="mt-1 font-type text-sm text-muted">{DECK_LABEL[c.deck]}</p>
-              </Link>
-            </li>
-          ))}
-        </ul>
-      )}
-
-      <div className="mt-8 grid gap-3">
-        <LinkButton to="/new">Start a circle</LinkButton>
-        <LinkButton to="/join" variant="secondary">Join with a code</LinkButton>
+      <div className="grid grid-cols-2 gap-3">
+        {[me, partner].map((person) => person && (
+          <Card key={person.id} className="text-center">
+            <p className="text-4xl" aria-hidden>{animalEmoji(person.home_animal)}</p>
+            <p className="mt-2 font-black">{person.id === uid ? 'You' : person.display_name}</p>
+            <p className="font-type text-sm text-muted">{localTime(person.timezone)}</p>
+          </Card>
+        ))}
       </div>
 
-      <footer className="mt-12 text-center font-type text-sm text-muted">
-        <p>
-          Agent #{agentNumber(uid)} · {profile.display_name}
-        </p>
-        <Link to="/me" className="mt-1 inline-block min-h-11 underline underline-offset-4">Change codename</Link>
-      </footer>
+      <section className="mt-10 space-y-2">
+        <h2 className="font-type text-xs font-bold tracking-[0.25em] text-muted uppercase">Setup</h2>
+        <Link to="/settings/notifications" className="block rounded-2xl border-2 border-line bg-card px-5 py-4 font-bold">
+          Notifications
+        </Link>
+        <Link to="/settings/voice" className="block rounded-2xl border-2 border-line bg-card px-5 py-4 font-bold">
+          Voice check
+        </Link>
+        <Link to="/me" className="block rounded-2xl border-2 border-line bg-card px-5 py-4 font-bold">
+          You
+        </Link>
+      </section>
     </Screen>
   )
 }

@@ -1,10 +1,9 @@
 import type { AnchorHTMLAttributes, ButtonHTMLAttributes, MouseEvent, ReactNode } from 'react'
 import { navigate } from '../lib/router'
-import type { Deck } from '../lib/types'
 
-export function Screen({ deck, back, children }: { deck?: Deck; back?: { to: string; label: string }; children: ReactNode }) {
+export function Screen({ back, children }: { back?: { to: string; label: string }; children: ReactNode }) {
   return (
-    <div data-deck={deck ?? 'chaos'} className="min-h-dvh bg-paper text-ink">
+    <div className="min-h-dvh bg-paper text-ink">
       <main className="mx-auto w-full max-w-md px-4 pt-[max(1.25rem,env(safe-area-inset-top))] pb-16">
         {back && (
           <Link to={back.to} className="mb-4 inline-flex min-h-11 items-center gap-1 font-semibold text-muted">
@@ -50,7 +49,7 @@ export function LinkButton({ to, variant = 'primary', children }: { to: string; 
 export function Stamp({ children, tone = 'stamp', animate = false }: { children: ReactNode; tone?: 'stamp' | 'good' | 'muted'; animate?: boolean }) {
   const color = { stamp: 'border-stamp text-stamp', good: 'border-good text-good', muted: 'border-muted text-muted' }[tone]
   return (
-    <span className={`inline-block -rotate-[8deg] rounded-md border-[3px] px-2 py-0.5 font-type text-sm font-black tracking-[0.2em] uppercase ${color} ${animate ? 'animate-stamp' : ''}`}>
+    <span className={`inline-block -rotate-[4deg] rounded-full border-2 px-3 py-0.5 text-xs font-black tracking-[0.15em] uppercase ${color} ${animate ? 'animate-stamp' : ''}`}>
       {children}
     </span>
   )
@@ -122,6 +121,9 @@ export function TextInput({ value, onChange, max, ...props }: {
   placeholder?: string
   autoFocus?: boolean
   autoCapitalize?: string
+  autoComplete?: string
+  inputMode?: 'text' | 'email' | 'numeric'
+  type?: 'text' | 'email'
   id?: string
   'aria-label'?: string
 }) {
