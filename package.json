@@ -1,5 +1,5 @@
 {
-  "name": "pigeon-ops",
+  "name": "elphyn",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -11,7 +11,9 @@
     "db:push": "supabase db push --linked",
     "db:seed": "supabase db query --linked -f supabase/seed/decks.sql",
     "db:advisors": "supabase db advisors --linked --type security",
-    "test:secrecy": "node --env-file=.env.local --test tests/secrecy.test.ts"
+    "test:secrecy": "node --env-file=.env.local --test tests/secrecy.test.ts",
+    "test:elphyn": "node --env-file=.env.local --test tests/elphyn.test.ts",
+    "test:all": "node --env-file=.env.local --test tests/elphyn.test.ts tests/secrecy.test.ts"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.117.3",

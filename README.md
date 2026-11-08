@@ -1,6 +1,6 @@
-# Pigeon Ops
+# Elphyn
 
-Secret missions for long-distance friends. See [SPEC.md](SPEC.md).
+A two-person app for Mason and Claire. See [ELPHYN_PLAN.md](ELPHYN_PLAN.md). The friends' game it grew out of, Pigeon Ops, is parked at the git tag `pigeon-ops-v1` (its backend and secrecy test are still here).
 
 ## Commands
 
@@ -9,14 +9,15 @@ Secret missions for long-distance friends. See [SPEC.md](SPEC.md).
 | `npm run dev` | Run the app locally (needs `.env.local`, see `.env.example`) |
 | `npm run build` | Type-check and build |
 | `npm run db:push` | Apply new migrations in `supabase/migrations` to the linked Supabase project |
-| `npm run db:seed` | Load the built-in decks from `supabase/seed/decks.sql` (safe to re-run) |
 | `npm run db:advisors` | Supabase's security checks against the live database |
-| `npm run test:secrecy` | The secrecy acceptance test. Signs up 4 anonymous agents per run (limit: 30/hour/IP), so run it sparingly |
+| `npm run test:elphyn` | Elphyn's secrecy and authorization tests |
+| `npm run test:secrecy` | The parked Pigeon Ops secrecy test |
+| `npm run test:all` | Both |
 
-## Editing the decks
+The tests create throwaway users (`elphyn-test-…@example.com`) through the admin API, so they need `SUPABASE_SECRET_KEY` in `.env.local`, plus a linked Supabase CLI for the checks that read hidden tables.
 
-Edit `supabase/seed/decks.sql`, then run `npm run db:seed`. Instructions are at the top of the file.
+## Where things run
 
-## Changing the scoring numbers
-
-They all live in `public.game_rules()` in `supabase/migrations/20261009150100_game_rules.sql`. To change one, add a new migration that redefines that function, then `npm run db:push`.
+- **App:** Vite + React on Vercel. Only the publishable key and the VAPID public key reach the browser.
+- **Push:** the database queues notifications in `private.outbox`; `pg_cron` and `pg_net` call `api/dispatch.ts` (Vercel) with a shared secret, which sends them with `web-push`.
+- **Keep-alive:** a daily Vercel cron calls `api/keepalive.ts`, which makes one database request and cleans up unused recordings.

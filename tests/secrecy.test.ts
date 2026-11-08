@@ -1,73 +1,22 @@
-// Secrecy acceptance test.
+// Secrecy acceptance test for the parked Pigeon Ops game.
 //
 // Plays an operation between two throwaway agents and tries every way to peek at
 // the other agent's card through the client library, using only the publishable
-// key, exactly like a nosy friend with devtools would.
+// key, exactly like a nosy friend with devtools would. The agents are created
+// through the admin API (see tests/support.ts), since anonymous sign-ins are off.
 //
 //   npm run test:secrecy
-//
-// Run it sparingly: each run signs up 4 anonymous agents, and Supabase allows
-// 30 anonymous sign-ups per hour per IP. A run that hits that limit fails with
-// "RATE LIMITED, NOT A LEAK".
 
 import assert from 'node:assert/strict'
 import { readFileSync, readdirSync } from 'node:fs'
 import { join } from 'node:path'
 import { before, describe, it } from 'node:test'
-import { createClient, type PostgrestError, type SupabaseClient } from '@supabase/supabase-js'
-
-const url = process.env.VITE_SUPABASE_URL ?? ''
-const publishableKey = process.env.VITE_SUPABASE_PUBLISHABLE_KEY ?? ''
-if (!url || !publishableKey) {
-  throw new Error('Set VITE_SUPABASE_URL and VITE_SUPABASE_PUBLISHABLE_KEY in .env.local')
-}
-
-type Agent = { name: string; id: string; client: SupabaseClient }
-
-const newClient = () =>
-  createClient(url, publishableKey, { auth: { persistSession: false, autoRefreshToken: false } })
+import { makeAgent, newClient, ok, refused, type Agent, type Loose } from './support.ts'
 
 async function signUpAgent(name: string): Promise<Agent> {
-  const client = newClient()
-  const { data, error } = await client.auth.signInAnonymously()
-  if (error) {
-    if (error.status === 429 || error.code === 'over_request_rate_limit' || /rate limit/i.test(error.message)) {
-      throw new Error(
-        'RATE LIMITED, NOT A LEAK: Supabase refused an anonymous sign-up (limit: 30 per hour per IP). ' +
-          'Nothing about secrecy was tested. Wait up to an hour and run again.',
-      )
-    }
-    if (error.code === 'anonymous_provider_disabled') {
-      throw new Error(
-        'SETUP, NOT A LEAK: anonymous sign-ins are off for this project. Turn on ' +
-          'Authentication > Sign In / Providers > "Allow anonymous sign-ins" in the Supabase dashboard.',
-      )
-    }
-    throw new Error(`Anonymous sign-up failed (${error.code ?? error.status}): ${error.message}`)
-  }
-  await ok(client.rpc('set_display_name', { p_name: name }))
-  return { name, id: data.user!.id, client }
-}
-
-// There are no generated database types, so rows come back loose.
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-type Loose = any
-
-async function ok(request: PromiseLike<{ data: unknown; error: PostgrestError | null }>): Promise<Loose> {
-  const { data, error } = await request
-  if (error) assert.fail(`Unexpected error: ${error.code} ${error.message}${error.hint ? ` [${error.hint}]` : ''}`)
-  return data
-}
-
-async function refused(
-  request: PromiseLike<{ error: PostgrestError | null }>,
-  expected: { code?: string; hint?: string },
-  what: string,
-) {
-  const { error } = await request
-  assert.ok(error, `${what}: expected a refusal, but it went through`)
-  if (expected.code) assert.equal(error.code, expected.code, `${what}: got ${error.code} ${error.message}`)
-  if (expected.hint) assert.equal(error.hint, expected.hint, `${what}: got ${error.hint} ${error.message}`)
+  const agent = await makeAgent(name)
+  await ok(agent.client.rpc('set_display_name', { p_name: name }))
+  return agent
 }
 
 async function myCard(agent: Agent, operationId: string) {
